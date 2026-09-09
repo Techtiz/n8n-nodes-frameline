@@ -13,6 +13,7 @@
   "homepage": "https://github.com/Techtiz/n8n-nodes-frameline#readme",
   "author": {
     "name": "Techtiz",
+    "email": "hello@techtiz.com",
     "url": "https://github.com/Techtiz"
   },
   "repository": {
@@ -24,11 +25,11 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "npx rimraf dist && tsc && gulp build:icons",
-    "dev": "tsc --watch",
+    "build": "n8n-node build",
+    "dev": "n8n-node dev",
     "format": "prettier nodes credentials --write",
-    "lint": "eslint nodes credentials package.json",
-    "lintfix": "eslint nodes credentials package.json --fix",
+    "lint": "n8n-node lint",
+    "lintfix": "n8n-node lint --fix",
     "prepublishOnly": "npm run build && npm run lint"
   },
   "files": [
@@ -44,17 +45,13 @@
     "nodes": [
       "dist/nodes/Frameline/Frameline.node.js",
       "dist/nodes/Frameline/FramelineTrigger.node.js"
-    ]
+    ],
+    "strict": true
   },
   "devDependencies": {
+    "@n8n/node-cli": "^0.47.0",
     "@types/node": "^20.19.43",
-    "@typescript-eslint/parser": "^8.32.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-n8n-nodes-base": "^1.16.3",
-    "gulp": "^5.0.0",
     "n8n-workflow": "~2.16.0",
-    "prettier": "^3.5.3",
-    "rimraf": "^5.0.5",
     "typescript": "^5.8.2"
   },
   "peerDependencies": {

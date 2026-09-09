@@ -7,6 +7,7 @@ import type {
 	INodeTypeDescription,
 	IPollFunctions,
 } from 'n8n-workflow';
+import { NodeConnectionTypes } from 'n8n-workflow';
 
 import {
 	framelineApiRequest,
@@ -25,7 +26,7 @@ export class FramelineTrigger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Frameline Trigger',
 		name: 'framelineTrigger',
-		icon: 'file:frameline.svg',
+		icon: { light: 'file:frameline.svg', dark: 'file:frameline.dark.svg' },
 		group: ['trigger'],
 		version: 1,
 		subtitle: '={{"New render"}}',
@@ -33,7 +34,7 @@ export class FramelineTrigger implements INodeType {
 		defaults: { name: 'Frameline Trigger' },
 		polling: true,
 		inputs: [],
-		outputs: ['main'],
+		outputs: [NodeConnectionTypes.Main],
 		credentials: [{ name: 'framelineApi', required: true }],
 		properties: [
 			{

@@ -1,5 +1,6 @@
 import type {
 	IDataObject,
+	JsonObject,
 	IExecuteFunctions,
 	ILoadOptionsFunctions,
 	INodeExecutionData,
@@ -10,7 +11,7 @@ import type {
 	ResourceMapperField,
 	ResourceMapperFields,
 } from 'n8n-workflow';
-import { NodeOperationError } from 'n8n-workflow';
+import { NodeApiError, NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 
 import {
 	describeParameter,
@@ -33,14 +34,14 @@ export class Frameline implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Frameline',
 		name: 'frameline',
-		icon: 'file:frameline.svg',
+		icon: { light: 'file:frameline.svg', dark: 'file:frameline.dark.svg' },
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description: 'Render Frameline design templates to PNG, JPEG or PDF',
 		defaults: { name: 'Frameline' },
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionTypes.Main],
+		outputs: [NodeConnectionTypes.Main],
 		usableAsTool: true,
 		credentials: [{ name: 'framelineApi', required: true }],
 		properties: [
@@ -337,7 +338,12 @@ export class Frameline implements INodeType {
 					continue;
 				}
 
-				throw error;
+				// framelineApiRequest already raises NodeApiError; anything else
+				// reaching here is a raw throw, so wrap it before it leaves the
+				// node. Either way what propagates is an n8n error type.
+				throw error instanceof NodeApiError || error instanceof NodeOperationError
+					? error
+					: new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
 			}
 		}
 

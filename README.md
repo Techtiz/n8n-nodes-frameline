@@ -109,8 +109,8 @@ Tested against n8n's current node API (`n8nNodesApiVersion: 1`) on Node.js 20+.
 
 ```bash
 npm install --legacy-peer-deps --ignore-scripts
-npm run build      # tsc + copy icons into dist
-npm run lint       # n8n community-node linter
+npm run build      # n8n-node build
+npm run lint       # n8n-node lint (strict mode)
 npm link           # then `npm link n8n-nodes-frameline` in ~/.n8n/custom
 ```
 

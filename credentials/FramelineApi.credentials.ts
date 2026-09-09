@@ -10,6 +10,8 @@ export class FramelineApi implements ICredentialType {
 
 	displayName = 'Frameline API';
 
+	icon = { light: 'file:frameline.svg', dark: 'file:frameline.dark.svg' } as const;
+
 	documentationUrl = 'https://frameline.io/documentation/api-reference/authentication';
 
 	properties: INodeProperties[] = [
