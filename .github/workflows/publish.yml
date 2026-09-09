@@ -1,0 +1,43 @@
+# Publishes to npm with a provenance statement.
+#
+# n8n requires verified community nodes to be published this way — a package
+# published from a laptop carries no attestation and is rejected at review.
+# Provenance needs `id-token: write` here and a trusted CI environment, which
+# is why this cannot be replicated locally.
+#
+# Release: bump "version" in package.json, then either publish a GitHub
+# release or run this workflow manually.
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # required for npm provenance
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps --ignore-scripts
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
