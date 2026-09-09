@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-frameline",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "n8n community node for Frameline \u2014 render design templates to PNG, JPEG or PDF from a workflow.",
   "keywords": [
     "n8n-community-node-package",
@@ -27,10 +27,10 @@
   "scripts": {
     "build": "n8n-node build",
     "dev": "n8n-node dev",
-    "format": "prettier nodes credentials --write",
     "lint": "n8n-node lint",
     "lintfix": "n8n-node lint --fix",
-    "prepublishOnly": "npm run build && npm run lint"
+    "prepublishOnly": "npm run build && npm run lint",
+    "test": "npm run lint && npm run build"
   },
   "files": [
     "dist",
