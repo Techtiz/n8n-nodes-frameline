@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-frameline",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "n8n community node for Frameline \u2014 render design templates to PNG, JPEG or PDF from a workflow.",
   "keywords": [
     "n8n-community-node-package",
@@ -13,7 +13,7 @@
   "homepage": "https://github.com/Techtiz/n8n-nodes-frameline#readme",
   "author": {
     "name": "Techtiz",
-    "email": "hello@techtiz.com",
+    "email": "utahir@techtiz.co",
     "url": "https://github.com/Techtiz"
   },
   "repository": {
